@@ -1,0 +1,108 @@
+img {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html {
+  font-size: 62.5%;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: 
+  #F3F3F3;
+}
+
+.principal {
+  width: 400px;
+  background-color: #F3F3F3;
+  margin: 0 auto;
+}
+
+header, footer {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 400px;
+  height: 80px;
+  background-color: #fff;
+  align-items: center;
+  
+}
+
+header {
+  z-index: 2;
+  top: 0;
+  box-shadow: 0px 6px 6px rgb(0 0 0 / 5%);
+  gap: 0 18rem;
+}
+
+footer {
+  
+  bottom: 0;
+  box-shadow: 0px -4px 6px rgb(0 0 0 / 5%);
+}
+
+h2 {
+  font-weight: 700;
+}
+
+.mensagens {
+  width: 400px;
+  z-index: 0;
+  position: absolute;
+  top: 10.6rem;
+}
+
+.container-mensagens {
+  margin-bottom: 10.6rem;
+}
+
+.mensagem-entrar-sair, .mensagem-normal, .mensagem-privada {
+  display: flex;
+  flex-wrap: wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  align-items: center;
+  position: relative;
+  min-height: 4rem;
+  gap: 0 .5rem;
+  border-radius: 2px;
+  padding: 1.2rem;
+  margin-bottom: .5rem;
+}
+
+.mensagem-entrar-sair {
+  background-color: #E5E5E5;
+  z-index: 0;
+}
+
+
+.mensagem-normal {
+  background-color: #fff;
+}
+
+.mensagem-privada {
+  background-color: #FFDEDE;
+}
+
+.escrever-mensagem {
+  height: 80px;
+}
+.escrever-mensagem textarea {
+  font-style: italic;
+  border: none;
+  resize: none;
+  padding-top: 3.2rem;
+}
+
+textarea:focus, input:focus {
+  box-shadow: 0 0 0 0;
+  outline: 0;
+  box-sizing: border-box;
+}
