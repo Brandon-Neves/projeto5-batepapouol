@@ -95,6 +95,8 @@ h2 {
   height: 80px;
 }
 .escrever-mensagem textarea {
+  line-height: 2.1rem;
+  font-size: 1.8rem;
   font-style: italic;
   border: none;
   resize: none;
