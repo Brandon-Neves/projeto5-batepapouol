@@ -1,9 +1,12 @@
 let mensagens = []
 let nomes
 
+setInterval(procurarMensagem, 3000)
+
 function procurarMensagem() {
   let promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages')
   promessa.then(buscarResposta)
+  rolagem()
 
   function buscarResposta(resposta) {
     mensagens = resposta.data
@@ -53,7 +56,7 @@ function escreverMensagens(mensagens) {
               <p>${tipoTexto}</p>
             </div>
           </div>`
-    } else if (destinatario !== 'Todos') {
+    } else if (destinatario !== 'Todos' || destinatario !== 'todos') {
       containerMensagem.innerHTML += `
       <div class="mensagem-privada">
             <div class="horario">
@@ -74,6 +77,13 @@ function escreverMensagens(mensagens) {
           </div>`
     }
   }
+}
+
+function rolagem() {
+  const ultimoElemento = document.querySelector(
+    '.container-mensagens > div:last-of-type'
+  )
+  ultimoElemento.scrollIntoView()
 }
 
 procurarMensagem()
