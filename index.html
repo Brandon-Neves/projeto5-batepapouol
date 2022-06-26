@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css" />
     <title>Bate papo uol</title>
   </head>
-  <body class="container-principal">
+  <body class="container-principal escondido">
     <div class="principal">
       <nav>
         <div class="menu-participantes escondido">
@@ -36,7 +36,7 @@
         </div>
       </nav>
       <header>
-        <div class="logo">
+        <div class="logo" onclick="fecharMenuParticipantes(this)">
           <img src="imagens/logo 1.png" alt="" />
         </div>
         <div class="menu">
@@ -46,7 +46,7 @@
         </div>
       </header>
       <main>
-        <div class="mensagens">
+        <div class="mensagens" onclick="fecharMenuParticipantes(this)">
           <ul class="container-mensagens">
             <li></li>
           </ul>
@@ -54,7 +54,7 @@
       </main>
 
       <footer>
-        <div class="escrever-mensagem">
+        <div class="escrever-mensagem" onclick="fecharMenuParticipantes(this)">
           <textarea
             class="conteudo-mensagem"
             name=""

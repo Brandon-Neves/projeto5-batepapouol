@@ -38,6 +38,13 @@ function menuParticipantes(bolinha) {
   menuParcipantesEscondido.classList.remove('escondido')
 }
 
+function fecharMenuParticipantes(bolinha) {
+  console.log('fui chamada.')
+  let divPrincipal = document.querySelector('.mensagens')
+  let fecharMenu = document.querySelector('.menu-participantes')
+  fecharMenu.classList.add('escondido')
+}
+
 function escolherDestinatario(bolinha) {}
 
 function procurarMensagem() {
