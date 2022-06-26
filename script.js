@@ -3,7 +3,8 @@ let nomes
 let nomeStatus
 
 setInterval(procurarMensagem, 3000)
-setInterval(enviarNome, 5000)
+setInterval(statusUsuario, 5000)
+pegarNome()
 
 function procurarMensagem() {
   let promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages')
@@ -17,17 +18,15 @@ function procurarMensagem() {
 }
 
 function pegarNome() {
-  nomes = prompt('Digite o seu lindo nome')
+  nomes = String(prompt('Digite o seu lindo nome'))
   const objetoNome = {
     name: nomes
   }
-  console.log(objetoNome)
   let promessaEnvio = axios.post(
     'https://mock-api.driven.com.br/api/v6/uol/participants ',
     objetoNome
   )
   promessaEnvio.then(enviarNome)
-  console.log(enviarNome)
   promessaEnvio.catch(nomeJaExiste)
 }
 
@@ -39,10 +38,24 @@ function nomeJaExiste(resposta) {
 function enviarNome(resposta) {
   nomeStatus = resposta
   let removerClasse = document.querySelector('.container-principal')
-  removerClasse.classList.remove('escondido')
+  if (nomes !== '') {
+    removerClasse.classList.remove('escondido')
+  } else {
+    pegarNome()
+  }
+  statusUsuario()
 }
 
-pegarNome()
+function statusUsuario() {
+  let promessaStatusUsuario = axios.post(
+    'https://mock-api.driven.com.br/api/v6/uol/status',
+    {
+      name: nomes
+    }
+  )
+  promessaStatusUsuario.then()
+  promessaStatusUsuario.cath()
+}
 
 function escreverMensagens(mensagens) {
   let containerMensagem = document.querySelector('.container-mensagens')
@@ -116,6 +129,23 @@ function rolagem() {
   )
   console.log(ultimoElemento)
   ultimoElemento.scrollIntoView()
+}
+
+function enviarMensagem(bolinha) {
+  let conteudoMensagem = document.querySelector('.conteudo-mensagem').value
+  console.log(conteudoMensagem)
+  let promessaEnviarMensagem = axios.post(
+    'https://mock-api.driven.com.br/api/v6/uol/messages',
+    {
+      from: nomes,
+      to: 'Todos',
+      text: `${conteudoMensagem}`,
+      type: 'message'
+    }
+  )
+  promessaEnviarMensagem.then()
+  let apagarMensagem = (document.querySelector('.conteudo-mensagem').value = '')
+  apagarMensagem
 }
 
 procurarMensagem()
