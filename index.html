@@ -17,6 +17,10 @@
   <body class="container-principal escondido">
     <div class="principal">
       <nav>
+        <div
+          class="background escondido"
+          onclick="fecharMenuParticipantes(this)"
+        ></div>
         <div class="menu-participantes escondido">
           <h2>Escolha um contato para enviar mensagem:</h2>
           <div class="todos" onclick="escolherDestinatario()">
@@ -36,7 +40,7 @@
         </div>
       </nav>
       <header>
-        <div class="logo" onclick="fecharMenuParticipantes(this)">
+        <div class="logo">
           <img src="imagens/logo 1.png" alt="" />
         </div>
         <div class="menu">
@@ -46,7 +50,7 @@
         </div>
       </header>
       <main>
-        <div class="mensagens" onclick="fecharMenuParticipantes(this)">
+        <div class="mensagens">
           <ul class="container-mensagens">
             <li></li>
           </ul>
@@ -54,7 +58,7 @@
       </main>
 
       <footer>
-        <div class="escrever-mensagem" onclick="fecharMenuParticipantes(this)">
+        <div class="escrever-mensagem">
           <textarea
             class="conteudo-mensagem"
             name=""

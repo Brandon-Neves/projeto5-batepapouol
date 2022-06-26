@@ -27,7 +27,6 @@ body {
 }
 
 header, footer {
-  z-index: -2;
   display: flex;
   justify-content: space-around;
   position: fixed;
@@ -39,20 +38,29 @@ header, footer {
 }
 
 header {
-  z-index: 2;
+  z-index: 1;
   top: 0;
   box-shadow: 0px 6px 6px rgb(0 0 0 / 5%);
   gap: 0 18rem;
 }
 
 footer {
-  z-index: 2;
+  z-index: 1;
   bottom: 2px;
   box-shadow: 0px -4px 6px rgb(0 0 0 / 5%);
 }
 
 h2 {
   font-weight: 700;
+}
+
+.background {
+    z-index: 4;
+    width: 125px;
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    height: 100%;
+    top: 0;
 }
 
 .menu-participantes{

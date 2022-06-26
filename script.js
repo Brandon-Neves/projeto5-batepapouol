@@ -6,7 +6,7 @@ let destinatario = []
 let typeMessage = []
 
 setInterval(procurarMensagem, 3000)
-setInterval(buscarUsuariosOnline, 5000)
+setInterval(buscarUsuariosOnline, 10000)
 setInterval(statusUsuario, 5000)
 pegarNome()
 
@@ -35,14 +35,17 @@ function usuariosOnline(resposta) {
 
 function menuParticipantes(bolinha) {
   let menuParcipantesEscondido = document.querySelector('.menu-participantes')
+  let backgroundMenuEscondido = document.querySelector('.background')
   menuParcipantesEscondido.classList.remove('escondido')
+  backgroundMenuEscondido.classList.remove('escondido')
 }
 
 function fecharMenuParticipantes(bolinha) {
   console.log('fui chamada.')
-  let divPrincipal = document.querySelector('.mensagens')
+  let background = document.querySelector('.background')
   let fecharMenu = document.querySelector('.menu-participantes')
   fecharMenu.classList.add('escondido')
+  background.classList.add('escondido')
 }
 
 function escolherDestinatario(bolinha) {}
