@@ -1,10 +1,44 @@
 let mensagens = []
 let nomes
 let nomeStatus
+let participantes = []
+let destinatario = []
+let typeMessage = []
 
 setInterval(procurarMensagem, 3000)
+setInterval(buscarUsuariosOnline, 5000)
 setInterval(statusUsuario, 5000)
 pegarNome()
+
+function buscarUsuariosOnline() {
+  let promessaParticipantes = axios.get(
+    'https://mock-api.driven.com.br/api/v6/uol/participants'
+  )
+  promessaParticipantes.then(usuariosOnline)
+}
+
+function usuariosOnline(resposta) {
+  participantes = resposta.data
+  let containerUsuarios = document.querySelector('.box-participantes')
+  containerUsuarios.innerHTML = ' '
+  for (let i = 0; i < participantes.length; i++) {
+    let quantidadeUsuariosOnline = participantes[i].name
+    containerUsuarios.innerHTML += `
+          
+          <div class="participantes">
+            <img src="imagens/person-circle 1.png" alt="" />
+            <h3>${quantidadeUsuariosOnline}</h3>
+          </div>  
+    `
+  }
+}
+
+function menuParticipantes(bolinha) {
+  let menuParcipantesEscondido = document.querySelector('.menu-participantes')
+  menuParcipantesEscondido.classList.remove('escondido')
+}
+
+function escolherDestinatario(bolinha) {}
 
 function procurarMensagem() {
   let promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages')
@@ -54,7 +88,6 @@ function statusUsuario() {
     }
   )
   promessaStatusUsuario.then()
-  promessaStatusUsuario.cath()
 }
 
 function escreverMensagens(mensagens) {
@@ -127,7 +160,6 @@ function rolagem() {
   const ultimoElemento = document.querySelector(
     '.container-mensagens li:last-child'
   )
-  console.log(ultimoElemento)
   ultimoElemento.scrollIntoView()
 }
 

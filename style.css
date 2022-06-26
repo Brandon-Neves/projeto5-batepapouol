@@ -27,6 +27,7 @@ body {
 }
 
 header, footer {
+  z-index: -2;
   display: flex;
   justify-content: space-around;
   position: fixed;
@@ -45,13 +46,47 @@ header {
 }
 
 footer {
-  
+  z-index: 2;
   bottom: 2px;
   box-shadow: 0px -4px 6px rgb(0 0 0 / 5%);
 }
 
 h2 {
   font-weight: 700;
+}
+
+.menu-participantes{
+  line-height: 1.9rem;
+    font-weight: 700;
+    font-size: 1.6rem;
+    display: flex;
+    position: fixed;
+    background-color: #FFFFFF;
+    width: 275px;
+    height: 100%;
+    z-index: 3;
+    top: 0;
+    margin-left: 125px;
+    padding: 1.5rem 1.8rem;
+    flex-direction: column;
+}
+
+.menu-participantes h2 {
+  text-align: center;
+  margin-top: 1.8rem;
+  margin-bottom: 3.5rem;
+}
+
+.todos, .participantes, .tipo-da-mensagem {
+  font-weight: 400;
+  display: flex;
+  gap: 0 10px;
+  line-height: 1.9rem;
+  margin-bottom: 1rem;
+}
+.todos img, .participantes img, .tipo-da-mensagem img {
+  width: 20px;
+  height: 20px;
 }
 
 .mensagens {
