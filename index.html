@@ -24,8 +24,9 @@
         <div class="menu-participantes escondido">
           <h2>Escolha um contato para enviar mensagem:</h2>
           <div class="participantes" onclick="selecionarUsuario(this)">
-            <img src="imagens/todos.png" alt="" />
+            <ion-icon class="visivel" name="people-outline"></ion-icon>
             <h3 class="nome-usuario">Todos</h3>
+            <ion-icon class="invisivel" name="checkmark-outline"></ion-icon>
           </div>
           <div class="box-participantes"></div>
           <h2>Escolha a visibilidade:</h2>
@@ -33,15 +34,17 @@
             class="tipo-da-mensagem"
             onclick="selecionarTipoDaMensagem(this)"
           >
-            <img src="imagens/Vector-3.png" alt="" />
+            <ion-icon class="visivel" name="lock-open-outline"></ion-icon>
             <h3 class="tipo-mensagem">Público</h3>
+            <ion-icon class="invisivel" name="checkmark-outline"></ion-icon>
           </div>
           <div
             class="tipo-da-mensagem"
             onclick="selecionarTipoDaMensagem(this)"
           >
-            <img src="imagens/Vector-1.png" alt="" />
+            <ion-icon class="visivel" name="lock-closed-outline"></ion-icon>
             <h3 class="tipo-mensagem">Reservadamente</h3>
+            <ion-icon class="invisivel" name="checkmark-outline"></ion-icon>
           </div>
         </div>
       </nav>
@@ -51,7 +54,7 @@
         </div>
         <div class="menu">
           <button class="menu-escondido" onclick="menuParticipantes(this)">
-            <img src="imagens/Vector.png" alt="" />
+            <ion-icon class="visivel" name="people-outline"></ion-icon>
           </button>
         </div>
       </header>
@@ -76,11 +79,12 @@
         </div>
         <div>
           <button class="apertar-enter" onclick="enviarMensagem(this)">
-            <img src="imagens/Vector1.png" alt="" />
+            <ion-icon class="visivel" name="paper-plane-outline"></ion-icon>
           </button>
         </div>
       </footer>
     </div>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
   </body>

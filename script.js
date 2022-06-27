@@ -7,9 +7,7 @@ let typeMessage
 let nomeUsuarioSelecionado
 
 setInterval(procurarMensagem, 3000)
-setInterval(buscarUsuariosOnline, 30000)
-setInterval(statusUsuario, 5000)
-pegarNome()
+setInterval(buscarUsuariosOnline, 10000)
 
 function buscarUsuariosOnline() {
   let promessaParticipantes = axios.get(
@@ -27,8 +25,9 @@ function usuariosOnline(resposta) {
     containerUsuarios.innerHTML += `
           
           <div class="participantes" onclick="selecionarUsuario(this)">
-            <img src="imagens/person-circle 1.png" alt="" />
+          <ion-icon class="visivel" name="person-circle-outline"></ion-icon>
             <h3 class="nome-usuario">${quantidadeUsuariosOnline}</h3>
+            <ion-icon class="invisivel" name="checkmark-outline"></ion-icon>
           </div>  
     `
   }
@@ -91,31 +90,28 @@ function procurarMensagem() {
 
 function pegarNome() {
   nomes = String(prompt('Digite o seu lindo nome'))
-  const objetoNome = {
-    name: nomes
-  }
+  let removerClasse = document.querySelector('.container-principal')
   let promessaEnvio = axios.post(
     'https://mock-api.driven.com.br/api/v6/uol/participants ',
-    objetoNome
+    { name: nomes }
   )
-  promessaEnvio.then(enviarNome)
+  promessaEnvio.then(function () {
+    removerClasse.classList.remove('escondido')
+  })
   promessaEnvio.catch(nomeJaExiste)
 }
 
 function nomeJaExiste(resposta) {
-  console.log(resposta)
-  pegarNome()
-}
-
-function enviarNome(resposta) {
-  nomeStatus = resposta
   let removerClasse = document.querySelector('.container-principal')
-  if (nomes !== '') {
+  nomes = String(prompt('Esse nome já existe, escolha outro'))
+  let promessa = axios.post(
+    'https://mock-api.driven.com.br/api/v6/uol/participants ',
+    { name: nomes }
+  )
+  promessa.then(function () {
     removerClasse.classList.remove('escondido')
-  } else {
-    pegarNome()
-  }
-  statusUsuario()
+  })
+  promessa.catch(nomeJaExiste)
 }
 
 function statusUsuario() {
@@ -127,6 +123,7 @@ function statusUsuario() {
   )
   promessaStatusUsuario.then()
 }
+setInterval(statusUsuario, 5000)
 
 function escreverMensagens(mensagens) {
   let containerMensagem = document.querySelector('.container-mensagens')
@@ -168,7 +165,7 @@ function escreverMensagens(mensagens) {
               <p>${tipoTexto}</p>
             </div>
           </li>`
-    } else if (tipoMessage === 'private_message') {
+    } else if (tipoMessage === 'private_message' && nomes === destinatario) {
       containerMensagem.innerHTML += `
       <li class="mensagem-privada">
             <div class="horario">
@@ -198,20 +195,31 @@ function rolagem() {
   ultimoElemento.scrollIntoView()
 }
 
-function enviarMensagem(bolinha) {
+function enviarMensagem() {
   let conteudoMensagem = document.querySelector('.conteudo-mensagem').value
-  let promessaEnviarMensagem = axios.post(
-    'https://mock-api.driven.com.br/api/v6/uol/messages',
-    {
-      from: nomes,
-      to: nomeUsuarioSelecionado,
-      text: `${conteudoMensagem}`,
-      type: typeMessage
-    }
-  )
-  promessaEnviarMensagem.then()
-  let apagarMensagem = (document.querySelector('.conteudo-mensagem').value = '')
-  apagarMensagem
+  if (conteudoMensagem !== '') {
+    let promessaEnviarMensagem = axios.post(
+      'https://mock-api.driven.com.br/api/v6/uol/messages',
+      {
+        from: nomes,
+        to: nomeUsuarioSelecionado,
+        text: conteudoMensagem,
+        type: typeMessage
+      }
+    )
+    promessaEnviarMensagem.then(function (respostas) {
+      respostas.data
+
+      procurarMensagem()
+    })
+    document.querySelector('.conteudo-mensagem').value = ''
+    promessaEnviarMensagem.catch(mensagemErro)
+  }
+}
+
+function mensagemErro() {
+  alert('Usuario desconectado')
+  window.location.reload()
 }
 
 document.addEventListener('keypress', function (enter) {
@@ -223,3 +231,4 @@ document.addEventListener('keypress', function (enter) {
 
 procurarMensagem()
 rolagem()
+pegarNome()
