@@ -3,10 +3,11 @@ let nomes
 let nomeStatus
 let participantes = []
 let destinatario = []
-let typeMessage = []
+let typeMessage
+let nomeUsuarioSelecionado
 
 setInterval(procurarMensagem, 3000)
-setInterval(buscarUsuariosOnline, 10000)
+setInterval(buscarUsuariosOnline, 30000)
 setInterval(statusUsuario, 5000)
 pegarNome()
 
@@ -25,9 +26,9 @@ function usuariosOnline(resposta) {
     let quantidadeUsuariosOnline = participantes[i].name
     containerUsuarios.innerHTML += `
           
-          <div class="participantes">
+          <div class="participantes" onclick="selecionarUsuario(this)">
             <img src="imagens/person-circle 1.png" alt="" />
-            <h3>${quantidadeUsuariosOnline}</h3>
+            <h3 class="nome-usuario">${quantidadeUsuariosOnline}</h3>
           </div>  
     `
   }
@@ -40,8 +41,35 @@ function menuParticipantes(bolinha) {
   backgroundMenuEscondido.classList.remove('escondido')
 }
 
+function selecionarUsuario(usuarios) {
+  let usuarioClicado = document.querySelector('.usuario-selecionado')
+  if (usuarioClicado !== null) {
+    usuarioClicado.classList.remove('usuario-selecionado')
+  }
+  usuarios.classList.add('usuario-selecionado')
+  nomeUsuarioSelecionado = document.querySelector(
+    '.usuario-selecionado .nome-usuario'
+  ).innerHTML
+}
+
+function selecionarTipoDaMensagem(tipo) {
+  let tipoClicado = document.querySelector('.tipo-selecionado')
+  if (tipoClicado !== null) {
+    tipoClicado.classList.remove('tipo-selecionado')
+  }
+  tipo.classList.add('tipo-selecionado')
+  typeMessage = document.querySelector(
+    '.tipo-selecionado .tipo-mensagem'
+  ).innerHTML
+  if (typeMessage === 'Público') {
+    typeMessage = 'message'
+  }
+  if (typeMessage === 'Reservadamente') {
+    typeMessage = 'private_message'
+  }
+}
+
 function fecharMenuParticipantes(bolinha) {
-  console.log('fui chamada.')
   let background = document.querySelector('.background')
   let fecharMenu = document.querySelector('.menu-participantes')
   fecharMenu.classList.add('escondido')
@@ -104,11 +132,12 @@ function escreverMensagens(mensagens) {
   let containerMensagem = document.querySelector('.container-mensagens')
   containerMensagem.innerHTML = ' '
   for (let i = 0; i < mensagens.length; i++) {
+    let tipoMessage = mensagens[i].type
     let tipoTexto = mensagens[i].text
     let destinatario = mensagens[i].to
     let horario = mensagens[i].time
     let nome = mensagens[i].from
-    if (tipoTexto === 'entra na sala...' || tipoTexto === 'sai da sala...') {
+    if (tipoMessage === 'status') {
       containerMensagem.innerHTML += `
       <li class="mensagem-entrar-sair">
       <div class="horario">
@@ -120,7 +149,7 @@ function escreverMensagens(mensagens) {
       <div class="conteudo">
         <p>${tipoTexto}</p>
       </li>`
-    } else if (destinatario === 'Todos') {
+    } else if (tipoMessage === 'message') {
       containerMensagem.innerHTML += `
       <li class="mensagem-normal">
             <div class="horario">
@@ -139,11 +168,7 @@ function escreverMensagens(mensagens) {
               <p>${tipoTexto}</p>
             </div>
           </li>`
-    } else if (
-      destinatario !== 'Todos' &&
-      destinatario !== 'todos' &&
-      nomes === destinatario
-    ) {
+    } else if (tipoMessage === 'private_message') {
       containerMensagem.innerHTML += `
       <li class="mensagem-privada">
             <div class="horario">
@@ -175,20 +200,26 @@ function rolagem() {
 
 function enviarMensagem(bolinha) {
   let conteudoMensagem = document.querySelector('.conteudo-mensagem').value
-  console.log(conteudoMensagem)
   let promessaEnviarMensagem = axios.post(
     'https://mock-api.driven.com.br/api/v6/uol/messages',
     {
       from: nomes,
-      to: 'Todos',
+      to: nomeUsuarioSelecionado,
       text: `${conteudoMensagem}`,
-      type: 'message'
+      type: typeMessage
     }
   )
   promessaEnviarMensagem.then()
   let apagarMensagem = (document.querySelector('.conteudo-mensagem').value = '')
   apagarMensagem
 }
+
+document.addEventListener('keypress', function (enter) {
+  if (enter.key === 'Enter') {
+    const botaoEnter = document.querySelector('.apertar-enter')
+    botaoEnter.click()
+  }
+})
 
 procurarMensagem()
 rolagem()

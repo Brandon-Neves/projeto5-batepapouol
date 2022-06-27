@@ -175,3 +175,11 @@ textarea:focus, input:focus {
 .escondido {
   display: none;
 }
+
+.usuario-selecionado {
+  background-color: red;
+}
+
+.tipo-selecionado {
+  background-color: red;
+}
